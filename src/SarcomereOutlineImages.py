@@ -1,0 +1,91 @@
+#!/usr/bin/python3
+# Author: Shreyasta Samal
+# -*- coding: utf-8 -*-
+# @File : SarcomereOutlineImages.py
+
+#!/usr/bin/python3
+# Author: Shreyasta Samal
+# -*- coding: utf-8 -*-
+# @File : BoundingRectCircle.py
+
+from __future__ import print_function
+import cv2 as cv
+import numpy as np
+import random as rng
+from PIL import Image as im
+import glob
+import os
+my_path='C:/Users/Shreyasta/PycharmProjects/Sarcomere/src/resources/images/sarcomere/A_2/original/'
+#my_path_save = 'C:/Users/Shreyasta/PycharmProjects/Sarcomere/src/resources/images/sarcomere/A_2/contour/'
+files=glob.glob(my_path+'*.png')
+
+
+rng.seed(12345)
+# modify code to write for all images and then save the output in a folder and
+
+def thresh_callback(val):
+    threshold = val
+
+    canny_output = cv.Canny(src_gray, threshold, threshold * 2)
+
+    contours, _ = cv.findContours(canny_output, cv.RETR_TREE, cv.CHAIN_APPROX_SIMPLE)
+
+    contours_poly = [None] * len(contours)
+    boundRect = [None] * len(contours)
+    centers = [None] * len(contours)
+    radius = [None] * len(contours)
+    for i, c in enumerate(contours):
+        contours_poly[i] = cv.approxPolyDP(c, 3, True)
+        boundRect[i] = cv.boundingRect(contours_poly[i])
+        centers[i], radius[i] = cv.minEnclosingCircle(contours_poly[i])
+
+    drawing = np.zeros((canny_output.shape[0], canny_output.shape[1], 3), dtype=np.uint8)
+
+    for i in range(len(contours)):
+        print('i is ',i)
+        #print(len(contours))
+        color = (rng.randint(0, 256), rng.randint(0, 256), rng.randint(0, 256))
+        cv.drawContours(drawing, contours_poly, i, color)
+        #cv.rectangle(drawing, (int(boundRect[i][0]), int(boundRect[i][1])),
+                     #(int(boundRect[i][0] + boundRect[i][2]), int(boundRect[i][1] + boundRect[i][3])), color, 2)
+        #print('Contours Poly is: ')
+        #print(contours_poly)
+
+        cv.imwrite('C:/Users/Shreyasta/PycharmProjects/Sarcomere/src/resources/contour_images/A_16/'+str(i)+'.png',drawing)
+    cv.imshow('Contours', drawing)
+
+# def save_contour():
+#     m = 0
+#     for j in files:
+#     #
+#         cv.imwrite(str(m)+ '.png', drawing)
+#         print(str(m) + '.png')
+#         m+=1
+    #     #print(my_path + 'sarcomere_A_2_' + str(x) + '_contour.png')
+    #     cv.imwrite(str(m) + j.rsplit('.', 1)[0] + '_contour.png',drawing)
+
+
+        #cv.imwrite(os.path.join(path, 'waka.jpg'), img)
+
+
+
+
+for i in files:
+
+    src = cv.imread(i)
+
+    if src is None:
+        print('Could not open or find the image:')
+        exit(0)
+    # Convert image to gray and blur it
+    src_gray = cv.cvtColor(src, cv.COLOR_BGR2GRAY)
+    src_gray = cv.blur(src_gray, (3,3))
+    source_window = 'Source'
+    cv.namedWindow(source_window)
+    cv.imshow(source_window, src)
+    max_thresh = 255
+    thresh = 100  # initial threshold
+    cv.createTrackbar('Canny thresh:', source_window, thresh, max_thresh, thresh_callback)
+    thresh_callback(thresh)
+
+    cv.waitKey(100)
