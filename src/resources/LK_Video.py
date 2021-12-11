@@ -1,13 +1,12 @@
 #!/usr/bin/python3
 # Author: Shreyasta Samal
 # -*- coding: utf-8 -*-
-# @File : LK_csv.py, this file will outline the sarcomere relaxation and contraction along with
-
+# @File : LK_Video.py
 
 import numpy as np
 import cv2
 
-cap = cv2.VideoCapture('C:/Users/Shreyasta/PycharmProjects/Sarcomere/src/resources/videos/A_5.avi')
+cap = cv2.VideoCapture('C:/Users/Shreyasta/PycharmProjects/Sarcomere/src/resources/videos/A_25_cropped_test.avi')
 font = cv2.FONT_HERSHEY_SIMPLEX
 # params for ShiTomasi corner detection
 feature_params = dict( maxCorners = 30,
@@ -57,12 +56,6 @@ while(1):
         cv2.putText(frame, "{}".format(t), (int(a) - 10, int(b) -10),
                     font, 0.4, (255, 153, 255), 1)
 
-        # with open("C:/Users/Shreyasta/PycharmProjects/Sarcomere/src/resources/images/sarcomere/A_25/A_25_cropped_new_test.txt", "a+") as file_object:
-        #     # visualize what parameters are coming in the end
-        #
-        #     file_object.write("{},{},{},{},{} \n".format(t, a, b, c, d))
-        #     print(t,a,b,c,d)
-
     img = cv2.add(frame,mask)
 
     cv2.imshow('frame',img)
@@ -73,8 +66,6 @@ while(1):
     # Now update the previous frame and previous points
     old_gray = frame_gray.copy()
     p0 = good_new.reshape(-1,1,2)
-
-# add another piece of code that will save all the images as the videos and save it
 
 cv2.destroyAllWindows()
 cap.release()

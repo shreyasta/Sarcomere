@@ -15,7 +15,7 @@ import random as rng
 from PIL import Image as im
 import glob
 import os
-my_path='C:/Users/Shreyasta/PycharmProjects/Sarcomere/src/resources/images/sarcomere/A_2/original/'
+my_path='C:/Users/Shreyasta/PycharmProjects/Sarcomere/src/resources/images/sarcomere/A_25/resize_bright/'
 #my_path_save = 'C:/Users/Shreyasta/PycharmProjects/Sarcomere/src/resources/images/sarcomere/A_2/contour/'
 files=glob.glob(my_path+'*.png')
 
@@ -51,7 +51,7 @@ def thresh_callback(val):
         #print('Contours Poly is: ')
         #print(contours_poly)
 
-        cv.imwrite('C:/Users/Shreyasta/PycharmProjects/Sarcomere/src/resources/contour_images/A_16/'+str(i)+'.png',drawing)
+        cv.imwrite('C:/Users/Shreyasta/PycharmProjects/Sarcomere/src/resources/A_25/contour/'+str(i)+'.png',drawing)
     cv.imshow('Contours', drawing)
 
 # def save_contour():

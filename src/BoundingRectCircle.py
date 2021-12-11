@@ -45,7 +45,7 @@ parser = argparse.ArgumentParser(description='Code for Creating Bounding boxes a
 parser.add_argument('--input', type=str, help='Path to input image.')
 args = parser.parse_args()
 #src = cv.imread(cv.samples.findFile(args.input))
-src = cv.imread('C:/Users/Shreyasta/PycharmProjects/Sarcomere/src/resources/images/sarcomere/sarcomere_A_2_0.png')
+src = cv.imread('C:/Users/Shreyasta/PycharmProjects/Sarcomere/src/resources/images/sarcomere/A_25/bright/12.png')
 if src is None:
     print('Could not open or find the image:', args.input)
     exit(0)

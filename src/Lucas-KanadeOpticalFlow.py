@@ -14,7 +14,7 @@ import argparse
 #                                               https://www.bogotobogo.com/python/OpenCV_Python/images/mean_shift_tracking/slow_traffic_small.mp4')
 # parser.add_argument('image', type=str, help='path to image file')
 # args = parser.parse_args()
-cap = cv.VideoCapture('C:/Users/Shreyasta/PycharmProjects/Sarcomere/src/resources/videos/A_1.avi')
+cap = cv.VideoCapture('C:/Users/Shreyasta/PycharmProjects/Sarcomere/src/resources/videos/A_24.avi')
 # params for ShiTomasi corner detection
 feature_params = dict( maxCorners = 75,
                        qualityLevel = 0.3,
@@ -49,30 +49,31 @@ while(1):
         good_old = p0[st==1]
     # draw the tracks
 
-    with open('A_1.csv', 'w', newline='') as csvfile:
-        fieldnames = ['frame_num', 'a', 'b', 'c', 'd']
-        writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
-        writer.writeheader()
+    # with open('A_24.csv', 'w', newline='') as csvfile:
+    #     fieldnames = ['frame_num', 'a', 'b', 'c', 'd']
+    #     writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
+    #     writer.writeheader()
 
 
-        for i,(new,old) in enumerate(zip(good_new, good_old)):
-            a,b = new.ravel()
-            c,d = old.ravel()
-            #mask = cv.line(mask, (int(a),int(b)),(int(c),int(d)), color[i].tolist(), 2)
-            # Making all the colours to red
-            # Mask provides the distance traveled
-            mask = cv.line(mask, (int(a),int(b)),(int(c),int(d)), color, 2)
-            #print(f"Coordinates of the high intesity points from line are {i} are {a} {b} and {c} {d}")
-            # Frame gives us only the coordinates of the high intensity points on the sarcomere
-            #frame = cv.circle(frame,(int(a),int(b)),2,color[i].tolist(),-1)
-            frame = cv.circle(frame,(int(a),int(b)),2,color,-1)
-            # print on the console
-            print(f" {i} ,{a}, {b}" )
-            # printing on the excel file
-            #rows.append([i, a, b])
-            #print(rows)
+    for i,(new,old) in enumerate(zip(good_new, good_old)):
+        a,b = new.ravel()
+        c,d = old.ravel()
+        #mask = cv.line(mask, (int(a),int(b)),(int(c),int(d)), color[i].tolist(), 2)
+        # Making all the colours to red
+        # Mask provides the distance traveled
+        mask = cv.line(mask, (int(a),int(b)),(int(c),int(d)), color, 2)
+        #print(f"Coordinates of the high intesity points from line are {i} are {a} {b} and {c} {d}")
+        # Frame gives us only the coordinates of the high intensity points on the sarcomere
+        #frame = cv.circle(frame,(int(a),int(b)),2,color[i].tolist(),-1)
+        frame = cv.circle(frame,(int(a),int(b)),2,color,-1)
+        # print on the console
+        #with open()
+        print(f" {i} ,{a}, {b}" )
+        # printing on the excel file
+        #rows.append([i, a, b])
+        #print(rows)
 
-            writer.writerow({'frame_num': f"{i}", 'a': f"{a}", 'b': f"{b}", 'c': f"{c}", 'd': f"{d}"})
+            #writer.writerow({'frame_num': f"{i}", 'a': f"{a}", 'b': f"{b}", 'c': f"{c}", 'd': f"{d}"})
 
 
 # print
@@ -89,7 +90,7 @@ while(1):
         cv.imshow('frame',img)
 
 
-        k = cv.waitKey(1) & 0xff
+        k = cv.waitKey(100) & 0xff
         if k == 27:
             break
         # Now update the previous frame and previous points

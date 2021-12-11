@@ -5,7 +5,7 @@
 
 import numpy as np
 import cv2 as cv
-cap = cv.VideoCapture(cv.samples.findFile("resources/videos/A_2.avi"))
+cap = cv.VideoCapture(cv.samples.findFile("resources/videos/A_25.avi"))
 ret, frame1 = cap.read()
 prvs = cv.cvtColor(frame1,cv.COLOR_BGR2GRAY)
 hsv = np.zeros_like(frame1)

@@ -58,22 +58,49 @@ import glob, os
 
 import cv2
 import numpy as np
-import glob
+import glob, re
 
+# resizing the frameWidth and frameHeight
+frameWidth = 252
+frameHeight = 252
+
+x=[]
 img_array = []
-for filename in glob.glob('C:/Users/Shreyasta/PycharmProjects/Sarcomere/src/resources/lucas_kanade/*.png'):
-   img = cv2.imread(filename)
-   height, width, layers = img.shape
-   size = (width, height)
-   print(size)
-   img_array.append(img)
+original_sorted_array = []
+sorted_array= []
+new_path = 'C:/Users/Shreyasta/PycharmProjects/Sarcomere/src/resources/images/sarcomere/A_25/trial/'
+my_path = 'C:/Users/Shreyasta/PycharmProjects/Sarcomere/src/resources/images/sarcomere/A_25/convex_hull/cropped_points/'
+for filename in glob.glob(my_path +'*.png'):
+   #img = cv2.imread(filename)
+   # unsorted image
+   #print(re.split('[\W]', filename)[-2])
+   # adding unsorted umbers to a list, for sortin it is importnat that the numbers are int
+   x.append(int(re.split('[\W]', filename)[-2]))
+   #print(x)
+   #height, width, layers = img.shape
+   #size = (width, height)
+   #img = cv2.resize(img, (frameWidth, frameHeight))
+   #print(size)
+   #print(type(filename))
+   #img_array.append(filename)
+# sorting the numbers
+y =sorted(x)
+print(sorted(x))
 
-print(len(img_array))
+   # Now sorting the right filenames in an array
+for i in y:
+   print(i)
+   img_array.append(my_path + str(i) + '.png')
 
 
-
-out = cv2.VideoWriter('C:/Users/Shreyasta/PycharmProjects/Sarcomere/src/resources/lucas_kanade/A_2_lk.avi', cv2.VideoWriter_fourcc(*'DIVX'), 15, size)
+out = cv2.VideoWriter('C:/Users/Shreyasta/PycharmProjects/Sarcomere/src/resources/videos/A_25_cropped_points.avi', cv2.VideoWriter_fourcc(*'DIVX'), 15, (188,312))
 
 for i in range(len(img_array)):
-   out.write(img_array[i])
+   img = cv2.imread(img_array[i])
+   out.write(img)
 out.release()
+
+
+
+
+

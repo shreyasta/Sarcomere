@@ -7,7 +7,7 @@
 import cv2
 import numpy as np
 
-img = cv2.imread("src/resources/images/sarcomere_A_2_10.png")
+img = cv2.imread("C:/Users/Shreyasta/PycharmProjects/Sarcomere/src/resources/images/synthetic_sarc.tif")
 kernel = np.ones((5, 5), np.uint8)
 
 imgGray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)

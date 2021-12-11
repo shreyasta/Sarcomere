@@ -8,7 +8,7 @@
 import cv2
 
 # reading the video
-source = cv2.VideoCapture('C:/Users/Shreyasta/PycharmProjects/Sarcomere/src/resources/videos/A_2.avi')
+source = cv2.VideoCapture('C:/Users/Shreyasta/PycharmProjects/Sarcomere/src/resources/videos/A_25.avi')
 img_array = []
 i = 0
 # running the loop
@@ -24,7 +24,7 @@ while (source.isOpened()):
     print(size)
     # converting to gray-scale
     gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
-    cv2.imwrite('resources/images/sarcomere/A_2/gray/'+ str(i) + '_gray.png', gray )
+    cv2.imwrite('resources/images/sarcomere/A_25/gray/'+ str(i) + '_gray.png', gray )
     i+=1
     img_array.append(gray)
  #
